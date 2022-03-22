@@ -1,5 +1,14 @@
+#main {
+    margin-bottom: 5rem;
+}
+
+.todo-item input:disabled {
+    background-color: transparent;
+    border: none;
+}
+
 #floating-btn {
-    position: absolute;
+    position: fixed;
     bottom: 1rem;
     right: 1rem;
 }
