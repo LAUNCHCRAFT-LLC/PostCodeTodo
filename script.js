@@ -1,6 +1,21 @@
 // ローカルストレージのキーになる文字列
 const LocalStorageKeyTodoData = 'TodoData';
 
+/**
+ * Todoリストに表示に使用するli要素を整形する
+ * @param {*} title 文字列: Todoのタイトル
+ * @returns domオブジェクト: li要素のdom
+ */
+const createListDom = ((title) => {
+    const liDom = $(
+        '<li class="uk-flex uk-flex-between">' +
+            title +
+            '<button class="uk-button uk-button-default uk-button-small">Edit</button>' +
+        '</li>'
+    );
+    return liDom;
+})
+
 $(() => {
 
     // ローカルストレージに保存しているTodoを取得して画面に表示する ----------------------
@@ -11,7 +26,7 @@ $(() => {
         // ループで回す
         todoData.forEach(todoTitle => {
             // TODOのタイトルをひとつずつ取得し li 要素にする
-            let todoList = $(`<li>${todoTitle}</li>`);
+            let todoList = createListDom(todoTitle);
             // HTMLに追加する
             $('#todo-list').append(todoList);
         });
@@ -31,7 +46,7 @@ $(() => {
             // 処理を止める
             return false;
         }
-        let todoList = $(`<li>${inputTodoTitle}</li>`)
+        let todoList = createListDom(inputTodoTitle);
         $('#todo-list').append(todoList);
 
         // ローカルストレージに保存 ------------------------------------------------
