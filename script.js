@@ -8,9 +8,9 @@ const LocalStorageKeyTodoData = 'TodoData';
  */
 const createListDom = ((title) => {
     const liDom = $(
-        '<li class="uk-flex uk-flex-between">' +
-            title +
-            '<button class="uk-button uk-button-default uk-button-small">Edit</button>' +
+        '<li class="uk-flex uk-flex-between todo-item">' +
+            `<input disabled class="uk-input" type="text" placeholder="" value="${title}">` +
+            '<button class="uk-button uk-button-default uk-button-small edit-btn">Edit</button>' +
         '</li>'
     );
     return liDom;
@@ -67,5 +67,14 @@ $(() => {
 
         // formの処理を止める
         return false;
+    });
+
+    /**
+     * 編集ボタンのクリックイベントを取得
+     */
+    $('.edit-btn').on('click', (e) => {
+        // 編集ボタンの隣(一つ前の要素)を取得
+        let totoInput = $(e.target).prev();
+        totoInput.prop('disabled', false);
     });
 });
