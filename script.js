@@ -72,7 +72,7 @@ $(() => {
     /**
      * 編集ボタンのクリックイベントを取得
      */
-    $('.edit-btn').on('click', (e) => {
+    $(document).on('click', '.edit-btn', (e) => {
         // 編集ボタンの隣(一つ前の要素)を取得
         let totoInput = $(e.target).prev();
         totoInput.prop('disabled', false);
