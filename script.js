@@ -83,4 +83,19 @@ $(() => {
         let totoInput = $(e.target).prev();
         totoInput.prop('disabled', false);
     });
+
+    /**
+     * キャンセルボタンのクリックイベントを取得
+     */
+     $(document).on('click', '.cancel-btn', (e) => {
+
+        // 編集ボタンの親要素のliを取得
+        const parentLi = $(e.target).parent();
+
+        // editというクラス名を削除
+        parentLi.removeClass('edit');
+
+        // findでインプット要素を検索しdisabledを有効にする
+        parentLi.find('input').prop('disabled', true);
+    });
 });
