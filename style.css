@@ -7,6 +7,18 @@
     border: none;
 }
 
+.todo-item .save-btn, .todo-item .cancel-btn {
+    display: none;
+}
+
+.todo-item.edit .edit-btn {
+    display: none;
+}
+
+.todo-item.edit .save-btn, .todo-item.edit .cancel-btn {
+    display: block;
+}
+
 #floating-btn {
     position: fixed;
     bottom: 1rem;

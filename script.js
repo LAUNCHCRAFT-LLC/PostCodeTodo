@@ -11,6 +11,8 @@ const createListDom = ((title) => {
         '<li class="uk-flex uk-flex-between todo-item">' +
             `<input disabled class="uk-input" type="text" placeholder="" value="${title}">` +
             '<button class="uk-button uk-button-default uk-button-small edit-btn">Edit</button>' +
+            '<button class="uk-button uk-button-primary uk-button-small uk-margin-left uk-margin-small-right save-btn">Save</button>' +
+            '<button class="uk-button uk-button-secondary uk-button-small cancel-btn">Cancel</button>' +
         '</li>'
     );
     return liDom;
@@ -73,6 +75,10 @@ $(() => {
      * 編集ボタンのクリックイベントを取得
      */
     $(document).on('click', '.edit-btn', (e) => {
+
+        // 編集ボタンの親要素のliにeditというクラス名を付与
+        $(e.target).parent().addClass('edit');
+
         // 編集ボタンの隣(一つ前の要素)を取得
         let totoInput = $(e.target).prev();
         totoInput.prop('disabled', false);
