@@ -7,7 +7,7 @@
     border: none;
 }
 
-.todo-item .save-btn, .todo-item .cancel-btn {
+.todo-item .save-btn, .todo-item .cancel-btn, .todo-item .delete-btn {
     display: none;
 }
 
@@ -15,7 +15,7 @@
     display: none;
 }
 
-.todo-item.edit .save-btn, .todo-item.edit .cancel-btn {
+.todo-item.edit .save-btn, .todo-item.edit .cancel-btn, .todo-item.edit .delete-btn {
     display: block;
 }
 

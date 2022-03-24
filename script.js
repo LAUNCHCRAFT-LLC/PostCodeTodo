@@ -13,6 +13,7 @@ const createListDom = ((title, index) => {
             `<input disabled class="uk-input" type="text" placeholder="" value="${title}">` +
             '<button class="uk-button uk-button-default uk-button-small edit-btn">Edit</button>' +
             '<button class="uk-button uk-button-primary uk-button-small uk-margin-left uk-margin-small-right save-btn">Save</button>' +
+            '<button class="uk-button uk-button-danger uk-button-small uk-margin-small-right delete-btn">Delete</button>' +
             '<button class="uk-button uk-button-secondary uk-button-small cancel-btn">Cancel</button>' +
         '</li>'
     );
@@ -142,4 +143,27 @@ $(() => {
         // findでインプット要素を検索しdisabledを有効にする
         parentLi.find('input').prop('disabled', true);
     });
+
+    /**
+     * 保存ボタンのクリックイベントを取得
+     */
+     $(document).on('click', '.delete-btn', (e) => {
+        // 編集ボタンの親要素のliを取得
+        const parentLi = $(e.target).parent();
+
+        // ローカルストレージのデータを取得
+        const todoDataJson = localStorage.getItem(LocalStorageKeyTodoData);
+        // JSONで保存しているので配列に変換
+        let todoData = JSON.parse(todoDataJson);
+        // li要素に付与していた何番目かのインデックスを取得
+        let index = parentLi.attr('data-index');
+        // 配列の中身を削除
+        todoData.splice(index, 1);
+        // JSON文字列に変換
+        const todoDataArrayJson = JSON.stringify(todoData);
+        // ローカルストレージに保存
+        localStorage.setItem(LocalStorageKeyTodoData, todoDataArrayJson);
+        // HTMLからも取り除く
+        parentLi.remove();
+     });
 });
