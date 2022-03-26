@@ -11,12 +11,24 @@
     display: none;
 }
 
-.todo-item.edit .edit-btn {
+.todo-item.edit .edit-btn, .todo-item .notyet-btn {
     display: none;
 }
 
 .todo-item.edit .save-btn, .todo-item.edit .cancel-btn, .todo-item.edit .delete-btn {
     display: block;
+}
+
+.todo-item .checked {
+    display: none;
+}
+
+.todo-item.done .checked, .todo-item.done .notyet-btn {
+    display: block;
+}
+
+.todo-item.done .done-btn {
+    display: none;
 }
 
 #floating-btn {

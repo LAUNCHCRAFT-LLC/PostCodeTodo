@@ -9,8 +9,11 @@ const LocalStorageKeyTodoData = 'TodoData';
 const createListDom = ((title, index) => {
     const liDom = $(
         // data-indexに何番目かのインデックスを持たせる
-        `<li class="uk-flex uk-flex-between todo-item" data-index="${index}">` +
+        `<li class="uk-flex uk-flex-middle uk-flex-between todo-item" data-index="${index}">` +
+            `<span class="uk-margin-small-right checked" uk-icon="check"></span>` +
             `<input disabled class="uk-input" type="text" placeholder="" value="${title}">` +
+            '<button class="uk-button uk-button-primary uk-button-small uk-margin-small-right done-btn">Done</button>' +
+            '<button class="uk-button uk-button-secondary uk-button-small uk-margin-small-right notyet-btn">NotYet</button>' +
             '<button class="uk-button uk-button-default uk-button-small edit-btn">Edit</button>' +
             '<button class="uk-button uk-button-primary uk-button-small uk-margin-left uk-margin-small-right save-btn">Save</button>' +
             '<button class="uk-button uk-button-danger uk-button-small uk-margin-small-right delete-btn">Delete</button>' +
@@ -165,5 +168,23 @@ $(() => {
         localStorage.setItem(LocalStorageKeyTodoData, todoDataArrayJson);
         // HTMLからも取り除く
         parentLi.remove();
+    });
+
+    /**
+     * 完了ボタンのクリックイベントを取得
+     */
+    $(document).on('click', '.done-btn', (e) => {
+        // 編集ボタンの親要素のliを取得
+        const parentLi = $(e.target).parent();
+        parentLi.addClass('done');
+    });
+
+    /**
+     * 完了訂正ボタンのクリックイベントを取得
+     */
+     $(document).on('click', '.notyet-btn', (e) => {
+        // 編集ボタンの親要素のliを取得
+        const parentLi = $(e.target).parent();
+        parentLi.removeClass('done');
     });
 });
