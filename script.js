@@ -147,7 +147,7 @@ $(() => {
     /**
      * 保存ボタンのクリックイベントを取得
      */
-     $(document).on('click', '.delete-btn', (e) => {
+    $(document).on('click', '.delete-btn', (e) => {
         // 編集ボタンの親要素のliを取得
         const parentLi = $(e.target).parent();
 
@@ -165,5 +165,5 @@ $(() => {
         localStorage.setItem(LocalStorageKeyTodoData, todoDataArrayJson);
         // HTMLからも取り除く
         parentLi.remove();
-     });
+    });
 });
