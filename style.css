@@ -31,6 +31,11 @@
     display: block;
 }
 
+/* 完了修正ボタン 編集中 非表示 */
+.todo-item.edit .notyet-btn {
+    display: none;
+}
+
 #floating-btn {
     position: fixed;
     bottom: 1rem;
