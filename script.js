@@ -21,7 +21,32 @@ const createListDom = ((title, index) => {
         '</li>'
     );
     return liDom;
-})
+});
+
+/**
+ * Todoのデータを取得
+ * @returns Array: Todoのデータを配列で返す
+ */
+const getTodoData = () => {
+    // ローカルストレージのデータを取得
+    const todoDataJson = localStorage.getItem(LocalStorageKeyTodoData);
+    // JSONで保存しているので配列に変換
+    let todoData = JSON.parse(todoDataJson);
+
+    return todoData;
+};
+
+/**
+ * Todoのデータを保存
+ * @param {*} todoData Array: Todoのデータ
+ */
+ const saveTodoData = (todoData) => {
+    // JSON文字列に変換
+    const todoDataArrayJson = JSON.stringify(todoData);
+    // ローカルストレージに保存
+    localStorage.setItem(LocalStorageKeyTodoData, todoDataArrayJson);
+};
+
 
 $(() => {
 
@@ -33,9 +58,13 @@ $(() => {
         // ループで回す ----------------------------------------------------------
         // ループをカウントする様の変数
         let index = 0;
-        todoData.forEach(todoTitle => {
-            // TODOのタイトルをひとつずつ取得し li 要素にする
-            let todoList = createListDom(todoTitle, index);
+        todoData.forEach(todoData => {
+            // Todoのタイトルをひとつずつ取得し li 要素にする
+            let todoList = createListDom(todoData.title, index);
+            // Todoが完了していたらdoneクラスを付与する
+            if (todoData.done) {
+                todoList.addClass('done');
+            }
             // HTMLに追加する
             $('#todo-list').append(todoList);
 
@@ -71,8 +100,12 @@ $(() => {
         let todoList = createListDom(inputTodoTitle, todoData.length);
         $('#todo-list').append(todoList);
 
-        // 配列に入力したタイトルを追加
-        todoData.push(inputTodoTitle);
+        // 配列に入力したTodoのデータを追加
+        const todoDataItem = {
+            title: inputTodoTitle,
+            done: false,
+        };
+        todoData.push(todoDataItem);
         // JSON文字列に変換
         const todoDataArrayJson = JSON.stringify(todoData);
         // ローカルストレージに保存
@@ -136,7 +169,7 @@ $(() => {
         // li要素に付与していた何番目かのインデックスを取得
         let index = parentLi.attr('data-index');
         // 配列の中身を入れ替え
-        todoData[index] = inputTodoTitle;
+        todoData[index].title = inputTodoTitle;
         // JSON文字列に変換
         const todoDataArrayJson = JSON.stringify(todoData);
         // ローカルストレージに保存
@@ -178,6 +211,14 @@ $(() => {
         // 編集ボタンの親要素のliを取得
         const parentLi = $(e.target).parent();
         parentLi.addClass('done');
+
+        // todoのデータを取得
+        const todoData = getTodoData();
+        // li要素に付与していた何番目かのインデックスを取得
+        let index = parentLi.attr('data-index');
+        todoData[index].done = true;
+        // ローカルストレージを保存
+        saveTodoData(todoData);
     });
 
     /**
@@ -187,5 +228,13 @@ $(() => {
         // 編集ボタンの親要素のliを取得
         const parentLi = $(e.target).parent();
         parentLi.removeClass('done');
+
+        // todoのデータを取得
+        const todoData = getTodoData();
+        // li要素に付与していた何番目かのインデックスを取得
+        let index = parentLi.attr('data-index');
+        todoData[index].done = false;
+        // ローカルストレージを保存
+        saveTodoData(todoData);
     });
 });
