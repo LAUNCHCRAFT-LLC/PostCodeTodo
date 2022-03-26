@@ -90,9 +90,10 @@ $(() => {
         // 編集ボタンの親要素のliにeditというクラス名を付与
         $(e.target).parent().addClass('edit');
 
-        // 編集ボタンの隣(一つ前の要素)を取得
-        let totoInput = $(e.target).prev();
-        totoInput.prop('disabled', false);
+        // 編集ボタンの親要素のliを取得
+        const parentLi = $(e.target).parent();
+        // findでインプット要素を検索しdisabledを有効にする
+        parentLi.find('input').prop('disabled', false);
     });
 
     /**
