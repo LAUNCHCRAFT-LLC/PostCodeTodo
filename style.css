@@ -7,7 +7,7 @@
     border: none;
 }
 
-/* 初期表示 表示 */
+/* 初期表示 非表示 */
 .todo-item .save-btn,
 .todo-item .cancel-btn,
 .todo-item .delete-btn,
