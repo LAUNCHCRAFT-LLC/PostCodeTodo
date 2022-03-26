@@ -7,28 +7,28 @@
     border: none;
 }
 
-.todo-item .save-btn, .todo-item .cancel-btn, .todo-item .delete-btn {
-    display: none;
-}
-
-.todo-item.edit .edit-btn, .todo-item .notyet-btn {
-    display: none;
-}
-
-.todo-item.edit .save-btn, .todo-item.edit .cancel-btn, .todo-item.edit .delete-btn {
-    display: block;
-}
-
-.todo-item .checked {
-    display: none;
-}
-
-.todo-item.done .checked, .todo-item.done .notyet-btn {
-    display: block;
-}
-
+/* 初期表示 表示 */
+.todo-item .save-btn,
+.todo-item .cancel-btn,
+.todo-item .delete-btn,
+.todo-item .notyet-btn,
+.todo-item .checked,
+/* 編集中 非表示 */
+.todo-item.edit .edit-btn,
+.todo-item.edit .done-btn,
+/* 完了中 非表示 */
 .todo-item.done .done-btn {
     display: none;
+}
+
+/* 編集中 表示 */
+.todo-item.edit .save-btn,
+.todo-item.edit .cancel-btn,
+.todo-item.edit .delete-btn,
+/* 完了中 表示 */
+.todo-item.done .notyet-btn,
+.todo-item.done .checked {
+    display: block;
 }
 
 #floating-btn {
