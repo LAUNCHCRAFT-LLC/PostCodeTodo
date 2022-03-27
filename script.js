@@ -32,7 +32,8 @@ const getTodoData = () => {
     const todoDataJson = localStorage.getItem(LocalStorageKeyTodoData);
     // JSONで保存しているので配列に変換
     let todoData = JSON.parse(todoDataJson);
-
+    // ソート
+    todoData.sort((a, b) => a.done - b.done);
     return todoData;
 };
 
@@ -51,9 +52,7 @@ const getTodoData = () => {
 $(() => {
 
     // ローカルストレージに保存しているTodoを取得して画面に表示する ----------------------
-    let todoDataJson = localStorage.getItem(LocalStorageKeyTodoData);
-    // JSON文字列で保存しているので一度配列に変換
-    let todoData = JSON.parse(todoDataJson);
+    let todoData = getTodoData();
     if (todoData) {
         // ループで回す ----------------------------------------------------------
         // ループをカウントする様の変数
@@ -212,6 +211,9 @@ $(() => {
         const parentLi = $(e.target).parent();
         parentLi.addClass('done');
 
+        // 要素を一番下に移動
+        $('#todo-list').append(parentLi);
+
         // todoのデータを取得
         const todoData = getTodoData();
         // li要素に付与していた何番目かのインデックスを取得
@@ -228,6 +230,9 @@ $(() => {
         // 編集ボタンの親要素のliを取得
         const parentLi = $(e.target).parent();
         parentLi.removeClass('done');
+
+        // 要素を一番上に移動
+        $('#todo-list').prepend(parentLi);
 
         // todoのデータを取得
         const todoData = getTodoData();
