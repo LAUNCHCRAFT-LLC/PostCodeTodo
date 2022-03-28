@@ -18,6 +18,7 @@ const createListDom = ((title, index) => {
             '<button class="uk-button uk-button-primary uk-button-small uk-margin-left uk-margin-small-right save-btn">Save</button>' +
             '<button class="uk-button uk-button-danger uk-button-small uk-margin-small-right delete-btn">Delete</button>' +
             '<button class="uk-button uk-button-secondary uk-button-small cancel-btn">Cancel</button>' +
+            `<span class="uk-margin-small-left sortable" uk-icon="table"></span>` +
         '</li>'
     );
     return liDom;
@@ -70,6 +71,12 @@ $(() => {
             index++;
         });
     }
+
+    // ドラッグ有効化
+    $('#todo-list').sortable({
+        handle: '.sortable',
+        cursor: 'pointer'
+    });
 
     /**
      * Add Todoボタンがクリックした時に実行される関数

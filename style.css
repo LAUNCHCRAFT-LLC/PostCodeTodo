@@ -2,6 +2,10 @@
     margin-bottom: 5rem;
 }
 
+.todo-item .sortable {
+    cursor: pointer
+}
+
 .todo-item input:disabled {
     background-color: transparent;
     border: none;
