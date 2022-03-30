@@ -106,6 +106,9 @@ $(() => {
             return false;
         }
 
+        // テキストフィールドを空にする
+        $('#input-todo-title').val('');
+
         // ローカルストレージに保存 ------------------------------------------------
         // ローカルストレージに保存しているデータを取得
         const todoDataJson = localStorage.getItem(LocalStorageKeyTodoData);
@@ -129,6 +132,18 @@ $(() => {
         const todoDataArrayJson = JSON.stringify(todoData);
         // ローカルストレージに保存
         localStorage.setItem(LocalStorageKeyTodoData, todoDataArrayJson);
+
+        const liDom = $(
+            '<div class="uk-alert-primary" uk-alert>' +
+            '<a class="uk-alert-close" uk-close></a>' +
+            '<p>保存しました</p>' +
+            '</div>'
+        );
+
+        $('#main form').after(liDom.hide().fadeIn(500))
+        setTimeout(() => {
+            UIkit.alert($('.uk-alert-primary')).close();
+        }, 2000)
 
         // formの処理を止める
         return false;
