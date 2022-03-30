@@ -11,7 +11,7 @@ const createListDom = ((title, index) => {
         // data-indexに何番目かのインデックスを持たせる
         `<li class="uk-flex uk-flex-middle uk-flex-between todo-item" data-index="${index}">` +
             `<span class="uk-margin-small-right checked" uk-icon="check"></span>` +
-            `<input disabled class="uk-input" type="text" placeholder="" value="${title}">` +
+            `<input disabled class="uk-input title" type="text" placeholder="" value="${title}">` +
             '<button class="uk-button uk-button-primary uk-button-small uk-margin-small-right done-btn">Done</button>' +
             '<button class="uk-button uk-button-default uk-button-small uk-margin-small-right notyet-btn">NotYet</button>' +
             '<button class="uk-button uk-button-default uk-button-small edit-btn">Edit</button>' +
@@ -33,8 +33,10 @@ const getTodoData = () => {
     const todoDataJson = localStorage.getItem(LocalStorageKeyTodoData);
     // JSONで保存しているので配列に変換
     let todoData = JSON.parse(todoDataJson);
-    // ソート
-    todoData.sort((a, b) => a.done - b.done);
+    if (todoData) {
+        // ソート
+        todoData.sort((a, b) => a.done - b.done);
+    }
     return todoData;
 };
 
@@ -75,7 +77,18 @@ $(() => {
     // ドラッグ有効化
     $('#todo-list').sortable({
         handle: '.sortable',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        update: (e, ui) => {
+            let todoData = [];
+            $.each($('#todo-list li'), (index, val) => {
+                let todoDataId = $(val).attr('data-id');
+                todoData.push({
+                    title: $(val).find('.title').val(),
+                    done: $(val).hasClass('done'),
+                })
+                saveTodoData(todoData);
+            });
+        },
     });
 
     /**
